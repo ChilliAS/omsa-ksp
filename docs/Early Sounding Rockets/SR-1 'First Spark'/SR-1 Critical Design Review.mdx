@@ -1,0 +1,101 @@
+---
+sidebar_position: 2
+---
+
+import drawing from './front_SkybreakerI.png';
+
+# Critical Design Review: SR-1 (Skybreaker I)
+
+**Document Ref:** OMSA-SR-1-CDR  
+**Program:** Early Sounding Rockets  
+**Vehicle:** Skybreaker I  
+**Target Launch:** February 1951
+
+:::info STATUS: Skybreaker I APPROVED for SR-1
+:::
+
+## 1. Vehicle Configuration
+
+### 1.1 Components & Dimensions
+The vehicle utilizes a single-stage liquid fuel configuration.
+
+* **Mass:** 285 kg
+* **Height:** 4.1 m
+* **Diameter:** 0.3 m
+* **Payload:** Science Core (0.3m) with Nose Cone
+* **Propulsion:** 1st Generation Aerobee
+* **Tankage:** Steel High Pressure Liquid Fuel (Aniline/Nitric Acid)
+* **Comms:** 2W UHF Telemetry Unit
+
+### 1.2 Drawings
+
+<img src={drawing} width="80%" style={{display: "block", margin: "auto"}}/>  
+<br />
+
+---
+
+
+## 2. Performance Analysis
+
+### 2.1 Propulsion Profile
+* **Burn Time ($t_{burn}$):** 47 - 52s (Nominal: 50s)
+* **Launch TWR:** 2.02
+* **Total $\Delta V$:** ~ 1200 m/s 
+
+### 2.2 Stability Analysis
+Stability is achieved via passive aerodynamic forces.
+
+* **Center of Mass (CoM):** Shifts forward during burn (Stable trend).
+* **Center of Pressure (CoP):** Located at tail fins, behind the CoM
+* **Static Margin:** Positive throughout flight.
+
+---
+
+## 3. Subsystem Design
+
+### 3.1 Payload
+* **Science Core:** 1st Generation Science Core - total mass 0.3 kg.
+* **Sensors:** Barometer & Temperature.
+* **Power:** Internal battery - total mass 0.3 kg.
+* **Recovery:** None.
+
+### 3.2 Power
+* **Load:** 102 W (Avionics + Comms).
+* *Supply:** 30 kJ Internal Chemical Battery.
+
+### 3.3 Communications (RF Link)
+Analysis of the 2W UHF downlink to Ground Station (G/S).
+
+| Parameter | Value |
+| :--- | :--- |
+| **Tx Power** | +30 dBm |
+| **Tx Gain** | 1.5 dBi |
+| **Rx Gain** | +3 dBi |
+| **Path Loss** | -105.1 dB |
+| **Received Power ($P_{RX}$)** | **-70.6 dBm** |
+
+* **Noise Floor:** -131.4 dBm
+* **Link Margin:**
+    $$-70.6 - (-131.4) = \mathbf{+60.7 \text{ dB}}$$
+* **Verdict:** Link is sufficient.
+
+### 3.4 Guidance, Navigation, and Control (GNC)
+* **Active Control:** None.
+* **Passive Stabilisation:** Tail fins angled at 5 degrees, generating spin stabilisation from aerodynamic forces.
+
+
+---
+
+## 4. Risk Register
+| Serial | Risk | Mitigatation | Severity |
+| :--- | :--- | :--- | :--- |
+| 1 | Uncontrolled catastrophic failure (explosion) | All personnel to be clear of pad. | High |
+| 2 | Engine failure | Engines are static tested prior to flight. | Medium |
+| 3 | Debris striking personnel or structres | Vehicle to be launched at a small angle towards the sea. Range safety device to be installed if possible. | Medium |
+
+---
+
+## 5. Manufacturing and Launch Constraints
+* LC-1 being developed with ground support equipment (GSE) for handling fuels for Skybreaker. Currently under construction - due
+to complete February 1951
+* Vehicle must be launched east over the Atlantic.

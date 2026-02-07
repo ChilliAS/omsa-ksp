@@ -1,0 +1,149 @@
+---
+sidebar_position: 1
+---
+
+import dvHeightGraph from './dVvsHeight.png';
+
+# Mission Definition Review: SR-1
+
+**Document Ref:** OMSA-SR-1-MDR  
+**Program:** Early Sounding Rockets  
+**Vehicle:** Skybreaker I  
+**Target Launch:** February 1951
+
+:::info STATUS: MISSION APPROVED
+:::
+
+## 1. Mission Overview
+### 1.1 Strategic Context
+SR-1 "First Spark" is the first launch of the new agency, laying the foundations for the **Early Sounding Rockets** campaign - 
+and aiming to complete the first contract in the Early Sounding Rockets program.  
+It will be the first test of the **Skybreaker I** vehicle and, if the launch is successful, will gather initial pressure/temperature data from the lower atmosphere and validate our aerodynamic models for future high-altitude Kármán line attempts.  
+
+This mission aims to complete the contract for "First Flight".
+
+
+### 1.2 Mission Objectives
+Objectives are tiered to allow for partial mission success analysis.
+
+| Serial | Objective | Source |
+| :--- | :--- | :--- |
+| 1 | Reach the desired altitude and climb rate requirements. | Contract |
+| 2 | Validate the sounding rocket performance model for use in future missions. | OMSA Engineering |
+| 2 | Gather low atmosphere Earth science and test the instruments | OMSA Science |
+
+---
+
+## 2. Requirements & Constraints
+### 2.1 Trajectory and Attitude Control
+
+| Serial | Requirement | Type | Source |
+| :--- | :--- | :--- | :--- |
+| 1.1 | The vehicle must reach a maximum altitude of at least 1000 m. | Threshold | Contract |
+| 1.2 | The vehicle should reach a maximum altitude of at least 15,000 m. | Goal | OMSA Engineering |
+| 1.3 | The vehicle should reach a maximum rate of climb of at least 50 m/s. | Threshold | Contract |
+| 1.4 | The trajectory must only take the vehicle over unpopulated areas. | Threshold | Range Safety |
+
+### 2.2 Payload & Science
+
+| Serial | Requirement | Type | Source |
+| :--- | :--- | :--- | :--- |
+| 2.1 | Temperature measurements should be made in-flight in the low atmosphere. | Goal| OMSA Science |
+| 2.2 | Barometer measurements should be made in-flight in the low atmosphere. | Goal | OMSA Science |
+| 2.3 | The payload should transmit scientific data back to the ground while in flight. | Goal | OMSA Science |
+
+### 2.3 Power & Avionics
+| Serial | Requirement | Type | Source |
+| :--- | :--- | :--- | :--- |
+| 3.1 | Battery capacity must be sufficient for the entire mission. | Threshold | OMSA Engineering |
+| 3.2 | Avionics must be sufficient to allow reading of payload instrument data and basic telemetry | Threshold | OMSA Engineering |
+
+## 3 Preliminary Analysis
+The preliminary analysis will be used as a basis for the design of the 'Skybreaker I' vehicle and will cover the following:
+* Delta-V Requirements
+* Flight Time Estimate
+* Power Budget
+
+In this analysis we make the following assumptions:
+
+
+### 3.1 Delta-V Requirements
+
+To estimate the required performance, we equate the kinetic energy at burnout to the potential energy at apogee, 
+accounting for losses during the powered ascent.
+
+$$
+mgh = \frac{1}{2} mv^2
+$$
+
+combined with:
+
+$$
+v = \Delta V_{usable} = \Delta V_{propellant} - gt_{burn} - (1-k_{drag})\Delta V_{propellant}
+$$
+
+results in:
+
+$$
+\Delta V_{propellant} = \cfrac{\sqrt{2gh} + gt_{burn}}{1-k_{drag}}
+$$
+
+where $h$ is the altitude above ground level, $t_{burn}$ is the engine burn time, $k_{drag}$ is the proportion of the 
+propellant's delta-v that is 'lost' to drag, and $g$ is the gravitational constant.  
+
+When the propellant Delta-V required is plotted against the target height, with a $t_{burn}$ of 50s (assuming an early generation
+Aerobee engine) the following graph is produced.  
+
+<img src={dvHeightGraph} width="70%" style={{display: "block", margin: "auto"}} />  
+<br />
+
+Assuming $k_{drag}$ is 0.2, the Delta-V required is estimated to be $1291 m/s$
+
+### 3.2 Flight Time Estimate
+
+The flight time is required in order to size the power subsystem and will be estimated by combining the burn time, coast time, and fall time, 
+assuming drag is negligible.
+
+$$
+T = t_{burn} + t_{coast} + t_{fall}
+$$
+
+where $t_{coast} = k_{coast}t_{burn}$ (an empirical assumption) and $t_{fall} = \sqrt{\cfrac{2h}{g}}$ (from SUVAT).  
+
+If $t_{burn} = 50$, $k_{coast} = 0.4$, and $h = 15000$ then $T = 125.3 seconds$.
+
+
+### 3.3 Power Budget
+
+If the above flight time is taken, with a safety factor of 2, and an initial assumption of a power consumption of 100 W, 
+the required energy storage is:
+
+$$
+125.3 * 2 * 0.1 = 25.1 kJ
+$$
+
+ 
+
+---
+
+## 3. Concept of Operations
+The mission profile consists of five distinct phases:
+
+* **Phase 0: Pre-Launch** - Confirm all systems are functioning correctly.
+
+* **Phase I: Launch** - Engine ignition, clamp release, and spin-stabilization.
+
+* **Phase II: Unpowered Ascent (Coast)** - Immediately following burnout (~T+50s) the vehicle coasts to apogee.
+
+* **Phase III: Apogee** - Maximum altitude is reached.
+
+* **Phase IV: Descent** - Unpowered and uncontrolled descent.
+
+---
+
+## 4. Risk Register
+| Serial | Risk | Mitigatation | Severity |
+| :--- | :--- | :--- | :--- |
+| 1 | Uncontrolled catastrophic failure (explosion) | All personnel to be clear of pad. | High |
+| 2 | Engine failure | Engines are static tested prior to flight. | Medium |
+| 3 | Debris striking personnel or structres | Vehicle to be launched at a small angle towards the sea. Range safety device to be installed if possible. | Medium |
